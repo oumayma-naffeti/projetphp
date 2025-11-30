@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ma Super Agence{% endblock %}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        header { background-color: #333; color: white; padding: 20px; text-align: center; }
+        nav { background-color: #444; padding: 10px; text-align: center; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { margin: 20px 0; color: #333; }
+        h2 { margin: 15px 0; color: #444; }
+        .properties { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .property { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .property h3 { margin: 10px 0; color: #333; }
+        .property p { color: #666; margin: 5px 0; font-size: 14px; }
+        .price { font-size: 20px; font-weight: bold; color: #27ae60; margin: 10px 0; }
+        .btn { display: inline-block; margin-top: 10px; padding: 10px 15px; background-color: #3498db; color: white; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
+        .btn:hover { background-color: #2980b9; }
+        .btn-danger { background-color: #e74c3c; }
+        .btn-danger:hover { background-color: #c0392b; }
+        .btn-success { background-color: #27ae60; }
+        .btn-success:hover { background-color: #229954; }
+        .sold { opacity: 0.6; }
+        .sold .price { color: #e74c3c; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #333; color: white; }
+        tr:hover { background-color: #f9f9f9; }
+        .alert { padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        form { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial, sans-serif; }
+        textarea { resize: vertical; min-height: 100px; }
+        input[type="checkbox"] { width: auto; }
+    </style>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <header>
+        <h1>🏠 Ma Super Agence Immobilière</h1>
+    </header>
+    
+    <nav>
+        <a href="{{ path('home') }}">Accueil</a>
+        <a href="{{ path('app_properties') }}">Annonces</a>
+        <a href="{{ path('admin_property_index') }}">Admin</a>
+    </nav>
+
+    <div class="container">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

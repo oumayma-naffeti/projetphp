@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ property.title }} - Ma Super Agence{% endblock %}
+
+{% block content %}
+<div class="back-link">
+    <a href="{{ path('app_properties') }}">← Retour aux annonces</a>
+</div>
+
+<div class="property-detail">
+    <h1>{{ property.title }}</h1>
+    
+    <p class="price">Détails du bien</p>
+    
+    <p><strong>Adresse:</strong> Non disponible</p>
+    
+    <h2>Caractéristiques</h2>
+    <div class="details">
+        <p>Aucun bien à afficher.</p>
+    </div>
+
+    <div class="back-link">
+        <a href="{{ path('app_properties') }}">← Retour aux annonces</a>
+    </div>
+</div>
+{% endblock %}

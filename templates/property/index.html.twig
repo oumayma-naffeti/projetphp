@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces - Ma Super Agence{% endblock %}
+
+{% block content %}
+<h1>Toutes nos annonces</h1>
+
+{% if properties is not empty %}
+    <div class="properties">
+        {% for property in properties %}
+            <div class="property {% if property.sold %}sold{% endif %}">
+                <h3>{{ property.title }}</h3>
+                <p><strong>{{ property.address }}</strong></p>
+                <p>{% if property.no %}{{ property.no }}, {% endif %}{{ property.city }}</p>
+                <p>{{ property.surface }} m² • {{ property.rooms }} pièces • {{ property.bedrooms }} chambres</p>
+                <p class="price">{{ property.price }} €</p>
+                {% if property.sold %}
+                    <p style="color: #e74c3c; font-weight: bold;">VENDU</p>
+                {% endif %}
+                <a href="{{ path('app_property_show', {'id': property.id}) }}" class="btn">Voir les détails</a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Aucune annonce disponible pour le moment.</p>
+{% endif %}
+{% endblock %}

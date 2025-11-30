@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un bien{% endblock %}
+
+{% block content %}
+<h1>Créer un nouveau bien</h1>
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% for message in app.flashes('error') %}
+    <div class="alert alert-error">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% include 'admin/property/form.html.twig' with {'form': form, 'property': property, 'button': 'Créer le bien'} %}
+
+<a href="{{ path('admin_property_index') }}" class="btn" style="margin-top: 20px;">Retour à la liste</a>
+{% endblock %}

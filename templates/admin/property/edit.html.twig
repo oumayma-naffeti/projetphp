@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer un bien{% endblock %}
+
+{% block content %}
+<h1>Éditer le bien</h1>
+
+<form method="POST" action="{{ path('admin_property_edit', {'id': 1}) }}" enctype="multipart/form-data" style="max-width: 600px;">
+    <div class="form-group">
+        <label for="title">Titre du bien *</label>
+        <input type="text" id="title" name="title" required>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Adresse *</label>
+        <input type="text" id="address" name="address" required>
+    </div>
+
+    <div class="form-group">
+        <label for="images">Images</label>
+        <input type="file" id="images" name="images[]" accept="image/*" multiple>
+    </div>
+
+    <div class="form-group">
+        <label for="city">Ville *</label>
+        <input type="text" id="city" name="city" required>
+    </div>
+
+    <div class="form-group">
+        <label for="price">Prix (€) *</label>
+        <input type="number" id="price" name="price" min="0" required>
+    </div>
+
+    <div class="form-group">
+        <label for="surface">Surface (m²) *</label>
+        <input type="number" id="surface" name="surface" min="10" max="400" required>
+    </div>
+
+    <div class="form-group">
+        <label for="rooms">Pièces *</label>
+        <input type="number" id="rooms" name="rooms" min="1" required>
+    </div>
+
+    <div class="form-group">
+        <label for="bedrooms">Chambres *</label>
+        <input type="number" id="bedrooms" name="bedrooms" min="0" required>
+    </div>
+
+    <div class="form-group">
+        <label for="floor">Étage *</label>
+        <input type="number" id="floor" name="floor" min="0" required>
+    </div>
+
+    <div class="form-group">
+        <label for="heat">Chauffage *</label>
+        <select id="heat" name="heat" required>
+            <option value="">-- Sélectionner --</option>
+            <option value="0">Électrique</option>
+            <option value="1">Gaz</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="sold">
+            <input type="checkbox" id="sold" name="sold" value="1">
+            Vendu
+        </label>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="btn btn-success">Modifier le bien</button>
+        <a href="{{ path('admin_property_index') }}" class="btn">Annuler</a>
+    </div>
+</form>
+{% endblock %}
