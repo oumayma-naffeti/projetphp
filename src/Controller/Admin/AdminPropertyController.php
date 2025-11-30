@@ -58,12 +58,23 @@ class AdminPropertyController extends AbstractController
             'property' => $property
         ]);
     }
+#[Route('/admin/property/{id}/edit', name: 'admin_property_edit')]
+public function edit(Property $property, Request $request, EntityManagerInterface $em)
+{
+    $form = $this->createForm(PropertyType::class, $property);
+    $form->handleRequest($request);
 
-    #[Route('/admin/property/{id}', name: 'admin_property_edit', methods: ['POST', 'GET'])]
-    public function edit(int $id): Response
-    {
-        return $this->render('admin/property/edit.html.twig');
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->flush();
+        $this->addFlash('success', 'Bien modifié avec succès');
+        return $this->redirectToRoute('admin_property_index');
     }
+
+    return $this->render('admin/property/edit.html.twig', [
+        'form' => $form->createView(),
+        'property' => $property
+    ]);
+}
 
     #[Route('/admin/property/{id}', name: 'admin_property_delete', methods: ['DELETE'])]
     public function delete(int $id): Response
