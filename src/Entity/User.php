@@ -2,23 +2,22 @@
 
 namespace App\Entity;
 
-
-use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity]
+#[ORM\Table(name: "user")]
 class User implements UserInterface, \Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: "integer")]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $username = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $password = null;
 
     public function getId(): ?int
@@ -31,16 +30,14 @@ class User implements UserInterface, \Serializable
         return $this->username;
     }
 
-    // Needed for Symfony 5.3+ UserInterface
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return $this->username ?? '';
     }
 
     public function setUsername(string $username): self
     {
         $this->username = $username;
-
         return $this;
     }
 
@@ -52,72 +49,38 @@ class User implements UserInterface, \Serializable
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
         return $this;
     }
-    
-    /**
-     * Returns the roles granted to the user.
-     *
-     *     public function getRoles()
-     *     {
-     *         return ['ROLE_USER'];
-     *     }
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return string[] The user roles
-     */
+
     public function getRoles(): array
     {
-        return ['ROLE_ADMIN'];
+        return ["ROLE_ADMIN"];
     }
 
-    /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
-     */
     public function getSalt()
     {
         return null;
     }
 
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
     public function eraseCredentials()
     {
     }
-    
-    /**
-     * @see \Serializable::serialize()
-     */
+
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
             $this->id,
             $this->username,
-            $this->password
-        ));
+            $this->password,
+        ]);
     }
 
-    /**
-     * @see \Serializable::unserialize()
-     */
     public function unserialize($serialized)
     {
-        list (
+        [
             $this->id,
             $this->username,
             $this->password
-        ) = unserialize($serialized, ['allowed_classes' => false]);
+        ] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
